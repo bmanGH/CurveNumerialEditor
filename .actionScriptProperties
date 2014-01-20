@@ -45,11 +45,9 @@
   <flashCatalyst validateFlashCatalystCompatibility="false"/>
   <buildTargets>
     <buildTarget buildTargetName="default" platformId="default">
-      <airSettings airCertificatePath="" airTimestamp="true" anePathSet="true" version="1">
+      <airSettings airCertificatePath="/Users/bman/Desktop/certificate/air/air_publish.p12" airTimestamp="true" anePathSet="true" version="1">
         <airExcludes>
-          <pathEntry path="BezierCurveViewer.swf"/>
           <pathEntry path=".DS_Store"/>
-          <pathEntry path="BezierCurveViewer-app.xml"/>
         </airExcludes>
         <anePaths/>
         <newLaunchParams/>

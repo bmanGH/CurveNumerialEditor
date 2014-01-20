@@ -3,6 +3,7 @@ package
 	import com.bit101.components.Component;
 	import com.bit101.components.HUISlider;
 	import com.bit101.components.InputText;
+	import com.bit101.components.NumericStepper;
 	import com.bit101.components.Style;
 	import com.bit101.components.TextArea;
 	import com.bit101.utils.MinimalConfigurator;
@@ -43,6 +44,7 @@ package
 		public var xSegment:InputText;
 		public var minYText:InputText;
 		public var maxYText:InputText;
+		public var yPrecision:NumericStepper;
 		public var markerStep:HUISlider;
 		public var outputTextArea:TextArea;
 		public var p1X:InputText;
@@ -75,6 +77,7 @@ package
 												<Label text="X segment:"/>
 												<Label text="Min Y:"/>
 												<Label text="Max Y:"/>
+												<Label text="Y Precision:"/>
 												<Label text="Control Point1 X:"/>
 												<Label text="Control Point1 Y:"/>
 												<Label text="Control Point2 X:"/>
@@ -86,6 +89,7 @@ package
 												<InputText id="xSegment" x="80" text="99" restrict="1234567890" />
 												<InputText id="minYText" x="80" text="0" restrict="1234567890.-" />
 												<InputText id="maxYText" x="80" text="999" restrict="1234567890.-" />
+												<NumericStepper id="yPrecision" x="80" step="1" minimum="0" maximum="20" />
 												<InputText id="p1X" x="80" restrict="1234567890.-" event="change:onInputControlPoint" />
 												<InputText id="p1Y" x="80" restrict="1234567890.-" event="change:onInputControlPoint" />
 												<InputText id="p2X" x="80" restrict="1234567890.-" event="change:onInputControlPoint" />
@@ -97,7 +101,7 @@ package
 											<PushButton label="Output" width="90" event="click:onOutputClick" />
 											<PushButton label="Copy" width="90" event="click:onCopyClick" />
 										</HBox>
-										<TextArea id="outputTextArea" width="190" height="160" />
+										<TextArea id="outputTextArea" width="190" height="140" />
 									</VBox>
 								</Panel>
 							</comps>;
@@ -194,7 +198,7 @@ package
 			
 			var minY:Number = Number(minYText.text);
 			var maxY:Number = Number(maxYText.text);
-			marker.label.text = (minY + unit_bezier.sampleCurveY(marker_t) * (maxY - minY)).toFixed(2);
+			marker.label.text = (minY + unit_bezier.sampleCurveY(marker_t) * (maxY - minY)).toFixed(yPrecision.value);
 		}
 		
 		public function onOutputClick(event:MouseEvent):void
@@ -216,7 +220,7 @@ package
 			var step:Number = 1.0 / (segment - 1);
 			for (var i:uint = 0; i < segment; i++)
 			{
-				output += (minY + unit_bezier.solve(x, 0.01) * (maxY - minY)).toFixed(2) + "\n";
+				output += (minY + unit_bezier.solve(x, 0.01) * (maxY - minY)).toFixed(yPrecision.value) + "\n";
 				x += step;
 			}
 			
